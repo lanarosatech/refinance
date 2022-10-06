@@ -5,7 +5,7 @@ class ConsecutivePayments extends Base {
 
   consecutivePayments() {
     if (!this._consecutivePayments) {
-      this._consecutivePayments = this.calculateConsecutivePayments(payments_data)
+      this._consecutivePayments = this.calculateConsecutivePayments(this.paymentsData())
     }
 
     return this._consecutivePayments
