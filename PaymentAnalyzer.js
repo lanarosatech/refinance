@@ -1,13 +1,11 @@
+import ConsecutivePayments from './ConsecutivePayments'
+
 class PaymentAnalyzer extends ConsecutivePayments {
   constructor(loan) {
     super(loan)
   }
 
   canRefinance() {
-    if (!this.loan.opened) {
-      return false
-    }
-
     if (this.analyzeData().lastPaymentDate.add(this.PAY_CYCLE, 'days') < Date.now()) {
       return false
     }
@@ -66,3 +64,5 @@ class PaymentAnalyzer extends ConsecutivePayments {
     return this.consecutiveAllotmentPayments().reduce((acc, cur) => acc + cur.amount, 0)
   }
 }
+
+export default PaymentAnalyzer

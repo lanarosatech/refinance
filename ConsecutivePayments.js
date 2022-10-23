@@ -1,3 +1,5 @@
+import Base from './Base'
+
 class ConsecutivePayments extends Base {
   constructor(loan) {
     super(loan)
@@ -107,3 +109,5 @@ class ConsecutivePayments extends Base {
     return false
   }
 }
+
+export default ConsecutivePayments
