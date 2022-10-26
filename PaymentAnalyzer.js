@@ -45,10 +45,12 @@ class PaymentAnalyzer extends ConsecutivePayments {
     const paymentsMeanDiff = this.loan.fixedPaymentAmount - paymentsMean
     const paymentsMeanDiffPercentege = (paymentsMeanDiff / this.loan.fixedPaymentAmount) * 100
 
+    const consecutiveAllotmentPayments = this.consecutiveAllotmentPayments()
+
     return {
       averageDaysConsecutiveAllotmentPaymentsCount: this.averageDaysConsecutiveAllotmentPayments(),
       paymentsCount: this.allotmentPayments().length,
-      lastPaymentDate: this.consecutiveAllotmentPayments().last.effectiveDate,
+      lastPaymentDate: consecutiveAllotmentPayments[consecutiveAllotmentPayments.length -1].effectiveDate,
       paymentsSum: paymentsSum,
       paymentsMean: paymentsMean,
       paymentsMeanDiff: paymentsMeanDiff,
