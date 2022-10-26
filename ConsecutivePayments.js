@@ -45,9 +45,9 @@ class ConsecutivePayments extends Base {
 
     paymentsData.sort((a, b) => a.effectiveDate - b.effectiveDate)
 
-    const averageDays = 0
-    const differenceDays = 0
-    const lastPayment = null
+    let averageDays = 0
+    let differenceDays = 0
+    let lastPayment = null
     paymentsData.forEach(paymentData => {
       differenceDays = this.consecutivePaymentsDiff(paymentData, lastPayment)
       lastPayment = paymentData
@@ -57,7 +57,7 @@ class ConsecutivePayments extends Base {
       }
     })
 
-    const paymentsDataCount = paymentsData.size
+    const paymentsDataCount = paymentsData.length
     if (paymentsDataCount < 2) {
       return 0
     } else {
@@ -66,7 +66,7 @@ class ConsecutivePayments extends Base {
   }
 
   consecutivePaymentsDiff(payment1, payment2) {
-    if (payment1 == null || payment2 === null) {
+    if (!payment1 || !payment2) {
       return false
     }
 
@@ -82,9 +82,9 @@ class ConsecutivePayments extends Base {
     }
 
     paymentsData.sort((a, b) => a.effectiveDate - b.effectiveDate)
-    const consecutivePayments = []
+    let consecutivePayments = []
     paymentsData.forEach(paymentData => {
-      if (!this.isConsecutivePayments(paymentData, consecutivePayments.last)) {
+      if (!this.isConsecutivePayments(paymentData, consecutivePayments[consecutivePayments.length - 1])) {
         consecutivePayments = []
       }
 
@@ -95,7 +95,7 @@ class ConsecutivePayments extends Base {
   }
 
   isConsecutivePayments(payment1, payment2) {
-    if (payment1 == null || payment2 === null) {
+    if (!payment1 || !payment2) {
       return false
     }
 

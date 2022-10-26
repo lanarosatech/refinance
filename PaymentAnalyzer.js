@@ -41,13 +41,13 @@ class PaymentAnalyzer extends ConsecutivePayments {
 
   analyzeData() {
     const paymentsSum = this.allotmentPaymentsSum()
-    const paymentsMean = paymentsSum / this.allotmentPayments().size
+    const paymentsMean = paymentsSum / this.allotmentPayments().length
     const paymentsMeanDiff = this.loan.fixedPaymentAmount - paymentsMean
     const paymentsMeanDiffPercentege = (paymentsMeanDiff / this.loan.fixedPaymentAmount) * 100
 
     return {
       averageDaysConsecutiveAllotmentPaymentsCount: this.averageDaysConsecutiveAllotmentPayments(),
-      paymentsCount: this.allotmentPayments().size,
+      paymentsCount: this.allotmentPayments().length,
       lastPaymentDate: this.consecutiveAllotmentPayments().last.effectiveDate,
       paymentsSum: paymentsSum,
       paymentsMean: paymentsMean,
