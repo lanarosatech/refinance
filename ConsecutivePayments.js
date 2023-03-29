@@ -102,7 +102,7 @@ class ConsecutivePayments extends Base {
     const effectiveDate1 = payment1.effectiveDate
     const effectiveDate2 = payment2.effectiveDate
 
-    if ((effectiveDate1 - effectiveDate2).abs <= this.PAY_CYCLE) {
+    if (Math.abs(effectiveDate1 - effectiveDate2) <= this.PAY_CYCLE) {
       return true
     }
 
