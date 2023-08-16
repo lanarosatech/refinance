@@ -1,4 +1,4 @@
-import Base from './Base'
+const  Base = require('./Base');
 
 class ConsecutivePayments extends Base {
   constructor(loan) {
@@ -9,31 +9,27 @@ class ConsecutivePayments extends Base {
     if (!this._consecutivePayments) {
       this._consecutivePayments = this.calculateConsecutivePayments(this.paymentsData())
     }
-
     return this._consecutivePayments
   }
 
   averageDaysConsecutiveAllotmentPayments() {
     const allotmentPayments = this.paymentsData().filter(e => e.source == 'Allotment')
-
     if (!this._averageDaysConsecutiveAllotmentPayments) {
       this._averageDaysConsecutiveAllotmentPayments =
         this.calculateAverageDaysAllotmentPayments(allotmentPayments)
     }
-
     return this._averageDaysConsecutiveAllotmentPayments
   }
 
   consecutiveAllotmentPayments() {
     const allotmentPayments = this.paymentsData().filter(e => e.source == 'Allotment')
-
     if (!this._consecutiveAllotmentPayments) {
       this._consecutiveAllotmentPayments = this.calculateConsecutivePayments(allotmentPayments)
     }
-
     return this._consecutiveAllotmentPayments
   }
 
+  // função de pagamento com a data e tipo de pagamento retornando o array com pagamentos de allotments
   allotmentPayments() {
     return this.paymentsData().filter(e => e.source == 'Allotment')
   }
@@ -42,7 +38,7 @@ class ConsecutivePayments extends Base {
     if (paymentsData.length == 0) {
       return []
     }
-
+    // ordem que o pagamento foi feito: do primeiro mais antigo pro ultimo mais recente
     paymentsData.sort((a, b) => a.effectiveDate - b.effectiveDate)
 
     let averageDays = 0
@@ -51,7 +47,6 @@ class ConsecutivePayments extends Base {
     paymentsData.forEach(paymentData => {
       differenceDays = this.consecutivePaymentsDiff(paymentData, lastPayment)
       lastPayment = paymentData
-
       if (differenceDays) {
         averageDays += differenceDays
       }
@@ -69,10 +64,8 @@ class ConsecutivePayments extends Base {
     if (!payment1 || !payment2) {
       return false
     }
-
     const effectiveDate1 = payment1.effectiveDate
     const effectiveDate2 = payment2.effectiveDate
-
     return Math.abs(effectiveDate1 - effectiveDate2)
   }
 
@@ -90,24 +83,15 @@ class ConsecutivePayments extends Base {
 
       consecutivePayments.push(paymentData)
     })
-
     return consecutivePayments
   }
 
   isConsecutivePayments(payment1, payment2) {
     if (!payment1 || !payment2) {
-      return false
+      return false;
     }
-
-    const effectiveDate1 = payment1.effectiveDate
-    const effectiveDate2 = payment2.effectiveDate
-
-    if (Math.abs(effectiveDate1 - effectiveDate2) <= this.PAY_CYCLE) {
-      return true
-    }
-
-    return false
+    return Math.abs(payment1.effectiveDate - payment2.effectiveDate) <= this.PAY_CYCLE;
   }
 }
 
-export default ConsecutivePayments
+module.exports = ConsecutivePayments;

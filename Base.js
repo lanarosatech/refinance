@@ -8,9 +8,9 @@ class Base {
   }
 
   paymentsData() {
-    // toArray will fetch the payments from database
+    // to Array will fetch the payments from database
     return this.loan.payments.toArray()
   }
 }
 
-export default Base
+module.exports = Base;
